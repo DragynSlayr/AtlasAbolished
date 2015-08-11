@@ -1,4 +1,4 @@
-package dodgearock;
+package menus;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -18,6 +18,8 @@ public class Main {
 	public static FileLoader loader;
 	public static ImageResizer resizer;
 	public static PseudoEncrypter encrypter;
+	
+	public static final String GAME_NAME = "Atlas Abolished";
 
 	public static void main(String[] args) {
 		// Store the screen size

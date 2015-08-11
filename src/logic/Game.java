@@ -1,4 +1,4 @@
-package dodgearock;
+package logic;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import menus.Main;
 import fileHandling.Scores;
 
 /**

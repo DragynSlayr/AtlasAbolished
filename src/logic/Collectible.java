@@ -1,4 +1,4 @@
-package dodgearock;
+package logic;
 
 public class Collectible {
 

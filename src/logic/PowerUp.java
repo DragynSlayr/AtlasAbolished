@@ -1,10 +1,12 @@
-package dodgearock;
+package logic;
 
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
+
+import menus.Main;
 
 /**
  * @author Inderpreet

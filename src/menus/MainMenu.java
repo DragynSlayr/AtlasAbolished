@@ -1,4 +1,4 @@
-package dodgearock;
+package menus;
 
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+
+import logic.Game;
 
 public class MainMenu {
 
@@ -72,7 +74,7 @@ public class MainMenu {
 		menuFrame = new JFrame();
 
 		// Set the title of the frame
-		menuFrame.setTitle("Dodge A Rock");
+		menuFrame.setTitle(Main.GAME_NAME + " - Main Menu");
 
 		// Stops the program when the 'x' button is clicked
 		menuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -98,7 +100,7 @@ public class MainMenu {
 		gameFrame.add(new Game());
 
 		// Set the title of the frame
-		gameFrame.setTitle("Dodge A Rock");
+		gameFrame.setTitle(Main.GAME_NAME);
 
 		// Stops the program when the 'x' button is clicked
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

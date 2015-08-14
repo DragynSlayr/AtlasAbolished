@@ -24,16 +24,16 @@ public class MainMenu {
 		ActionListener buttonActionListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				menuFrame.dispose();
 				switch (e.getActionCommand()) {
 				case START_TEXT:
+					menuFrame.dispose();
 					createGameFrame();
 					break;
 				case SETTINGS_TEXT:
-					//TODO new SettingsMenu();
-					new MainMenu();
+					new SettingsMenu();
 					break;
 				case EXIT_TEXT:
+					menuFrame.dispose();
 					System.exit(0);
 					break;
 				}

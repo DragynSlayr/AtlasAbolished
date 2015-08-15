@@ -1,5 +1,6 @@
 package menus;
 
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -19,11 +20,14 @@ public class SettingsMenu {
 	public SettingsMenu() {
 		createSettingsMenu();
 
+		Font settingsMenuFont = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
+
 		GridBagLayout layout = new GridBagLayout();
 
 		settingsFrame.setLayout(layout);
 
 		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane.setFont(settingsMenuFont);
 
 		for (String s : TABS) {
 			tabbedPane.addTab(s, createTextPanel(s));
@@ -36,7 +40,7 @@ public class SettingsMenu {
 		settingsConstraints.gridwidth = 4;
 		settingsConstraints.gridx = 0;
 		settingsConstraints.gridy = 0;
-		settingsConstraints.ipady = 250;
+		settingsConstraints.ipady = 270;
 		settingsConstraints.weightx = 1;
 		settingsConstraints.weighty = GridBagConstraints.REMAINDER;
 		settingsConstraints.insets = new Insets(0, 1, 0, 1);
@@ -44,6 +48,7 @@ public class SettingsMenu {
 		settingsFrame.add(tabbedPane, settingsConstraints);
 
 		JButton resetButton = new JButton(BUTTONS[0]);
+		resetButton.setFont(settingsMenuFont);
 
 		GridBagConstraints resetConstraints = new GridBagConstraints();
 		resetConstraints.anchor = GridBagConstraints.SOUTHWEST;
@@ -54,11 +59,12 @@ public class SettingsMenu {
 		resetConstraints.gridx = 0;
 		resetConstraints.gridy = 1;
 		resetConstraints.ipady = 10;
-		resetConstraints.insets = new Insets(0, 1, 1, 15);
+		resetConstraints.insets = new Insets(0, 1, 1, 0);
 
 		settingsFrame.add(resetButton, resetConstraints);
 
 		JButton applyButton = new JButton(BUTTONS[1]);
+		applyButton.setFont(settingsMenuFont);
 
 		GridBagConstraints applyConstraints = new GridBagConstraints();
 		applyConstraints.anchor = GridBagConstraints.SOUTH;
@@ -74,6 +80,7 @@ public class SettingsMenu {
 		settingsFrame.add(applyButton, applyConstraints);
 
 		JButton cancelButton = new JButton(BUTTONS[2]);
+		cancelButton.setFont(settingsMenuFont);
 
 		GridBagConstraints cancelConstraints = new GridBagConstraints();
 		cancelConstraints.anchor = GridBagConstraints.SOUTH;

@@ -1,12 +1,16 @@
 package menus;
 
 import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import logic.Game;
 
@@ -40,33 +44,52 @@ public class MainMenu {
 			}
 		};
 
-		GridLayout layout = new GridLayout(3, 1);
+		GridBagLayout layout = new GridBagLayout();
 
 		menuFrame.setLayout(layout);
 
+		Insets padding = new Insets(1, 1, 1, 1);
+
+		JLabel titleLabel = new JLabel(Main.GAME_NAME, SwingConstants.CENTER);
+		titleLabel.setFont(buttonFont.deriveFont(Font.PLAIN, 75));
+
+		GridBagConstraints titleConstraints = new GridBagConstraints();
+		titleConstraints.fill = GridBagConstraints.HORIZONTAL;
+		titleConstraints.gridx = 0;
+		titleConstraints.gridy = 0;
+		titleConstraints.insets = padding;
+
+		menuFrame.add(titleLabel, titleConstraints);
+
 		JButton startButton = new JButton(START_TEXT);
-
 		startButton.setFont(buttonFont);
-
 		startButton.addActionListener(buttonActionListener);
 
-		menuFrame.add(startButton);
+		GridBagConstraints buttonConstraints = new GridBagConstraints();
+		buttonConstraints.fill = GridBagConstraints.HORIZONTAL;
+		buttonConstraints.gridx = 0;
+		buttonConstraints.gridy = 1;
+		buttonConstraints.insets = padding;
+
+		menuFrame.add(startButton, buttonConstraints);
 
 		JButton settingsMenu = new JButton(SETTINGS_TEXT);
-
 		settingsMenu.setFont(buttonFont);
-
 		settingsMenu.addActionListener(buttonActionListener);
 
-		menuFrame.add(settingsMenu);
+		buttonConstraints.gridy = 2;
+
+		menuFrame.add(settingsMenu, buttonConstraints);
 
 		JButton exitButton = new JButton(EXIT_TEXT);
-
 		exitButton.setFont(buttonFont);
-
 		exitButton.addActionListener(buttonActionListener);
 
-		menuFrame.add(exitButton);
+		buttonConstraints.gridy = 3;
+
+		menuFrame.add(exitButton, buttonConstraints);
+
+		displayFrame();
 	}
 
 	private void createMainMenu() {
@@ -80,7 +103,12 @@ public class MainMenu {
 		menuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		// Set the size of the frame
-		menuFrame.setSize(Main.screenWidth / 3, Main.screenHeight / 2);
+		// menuFrame.setSize(Main.screenWidth / 3, Main.screenHeight / 2);
+	}
+
+	private void displayFrame() {
+		// Set the size of the frame
+		menuFrame.pack();
 
 		// Center the frame
 		menuFrame.setLocationRelativeTo(null);

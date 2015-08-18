@@ -1,9 +1,12 @@
 package menus;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,10 +17,27 @@ import javax.swing.JTabbedPane;
 public class SettingsMenu {
 
 	private final String[] TABS = { "Game", "Video", "Audio", "Controls" };
-	private final String[] BUTTONS = { "Reset", "Apply", "Cancel" };
+	private final String RESET_TEXT = "Reset", APPLY_TEXT = "Apply",
+			CANCEL_TEXT = "Cancel";
 	private JFrame settingsFrame;
 
 	public SettingsMenu() {
+		ActionListener buttonListener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(e.getActionCommand());
+				switch (e.getActionCommand()) {
+				case RESET_TEXT:
+					break;
+				case APPLY_TEXT:
+					break;
+				case CANCEL_TEXT:
+					break;
+				}
+			}
+		};
+
 		createSettingsMenu();
 
 		Font settingsMenuFont = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
@@ -45,8 +65,9 @@ public class SettingsMenu {
 
 		settingsFrame.add(tabbedPane, constraints);
 
-		JButton resetButton = new JButton(BUTTONS[0]);
+		JButton resetButton = new JButton(RESET_TEXT);
 		resetButton.setFont(settingsMenuFont);
+		resetButton.addActionListener(buttonListener);
 
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
@@ -54,15 +75,17 @@ public class SettingsMenu {
 
 		settingsFrame.add(resetButton, constraints);
 
-		JButton applyButton = new JButton(BUTTONS[1]);
+		JButton applyButton = new JButton(APPLY_TEXT);
 		applyButton.setFont(settingsMenuFont);
+		applyButton.addActionListener(buttonListener);
 
 		constraints.gridx = 1;
 
 		settingsFrame.add(applyButton, constraints);
 
-		JButton cancelButton = new JButton(BUTTONS[2]);
+		JButton cancelButton = new JButton(CANCEL_TEXT);
 		cancelButton.setFont(settingsMenuFont);
+		cancelButton.addActionListener(buttonListener);
 
 		constraints.gridx = 2;
 
@@ -88,6 +111,9 @@ public class SettingsMenu {
 
 		// Stops the program when the 'x' button is clicked
 		settingsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		// Set the background color
+		settingsFrame.getContentPane().setBackground(Color.WHITE);
 
 		// Set the size of the frame
 		// settingsFrame.setSize(Main.screenWidth / 3, Main.screenHeight / 2);

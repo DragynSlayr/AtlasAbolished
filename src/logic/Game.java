@@ -398,7 +398,7 @@ public class Game extends JPanel implements ActionListener {
 		projectile.resetProjectileX();// Sets the bullet's x coordinate
 		projectile.resetProjectileY();// Sets the bullet's y coordinate
 		projectile.resetFallCount();// Resets player score
-		coin.resetCoinLocation();//Resets coin location
+		coin.resetCoinLocation();// Resets coin location
 		resetBuffs();// Resets power up bonuses
 	}
 

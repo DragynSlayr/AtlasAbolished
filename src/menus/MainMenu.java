@@ -1,5 +1,6 @@
 package menus;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -23,7 +24,8 @@ public class MainMenu {
 	public MainMenu() {
 		createMainMenu();
 
-		Font buttonFont = new Font(Font.SERIF, Font.PLAIN, 50);
+		Font buttonFont = new Font(Font.SANS_SERIF, Font.PLAIN, 50);
+		Font titleFont = new Font("Quartz MS", Font.PLAIN, 75);
 
 		ActionListener buttonActionListener = new ActionListener() {
 			@Override
@@ -51,7 +53,7 @@ public class MainMenu {
 		Insets padding = new Insets(1, 1, 1, 1);
 
 		JLabel titleLabel = new JLabel(Main.GAME_NAME, SwingConstants.CENTER);
-		titleLabel.setFont(buttonFont.deriveFont(Font.PLAIN, 75));
+		titleLabel.setFont(titleFont);
 
 		GridBagConstraints titleConstraints = new GridBagConstraints();
 		titleConstraints.fill = GridBagConstraints.HORIZONTAL;
@@ -101,6 +103,9 @@ public class MainMenu {
 
 		// Stops the program when the 'x' button is clicked
 		menuFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		// Set background color
+		menuFrame.getContentPane().setBackground(Color.WHITE);
 
 		// Set the size of the frame
 		// menuFrame.setSize(Main.screenWidth / 3, Main.screenHeight / 2);

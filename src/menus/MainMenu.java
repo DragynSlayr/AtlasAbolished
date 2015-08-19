@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import logic.Game;
@@ -18,7 +20,7 @@ import logic.Game;
 public class MainMenu {
 
 	private final String START_TEXT = "Start", SETTINGS_TEXT = "Settings",
-			EXIT_TEXT = "Exit";
+			EXIT_TEXT = "Exit", SHOP_TEXT = "Shop";
 	public static JFrame menuFrame;
 
 	public MainMenu() {
@@ -43,6 +45,10 @@ public class MainMenu {
 					menuFrame.dispose();
 					System.exit(0);
 					break;
+				case SHOP_TEXT:
+					// TODO new ShopMenu();
+					// TODO menuFrame.setEnabled(false);
+					break;
 				}
 			}
 		};
@@ -56,41 +62,46 @@ public class MainMenu {
 		JLabel titleLabel = new JLabel(Main.GAME_NAME, SwingConstants.CENTER);
 		titleLabel.setFont(titleFont);
 
-		GridBagConstraints titleConstraints = new GridBagConstraints();
-		titleConstraints.fill = GridBagConstraints.HORIZONTAL;
-		titleConstraints.gridx = 0;
-		titleConstraints.gridy = 0;
-		titleConstraints.insets = padding;
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.gridwidth = 2;
+		constraints.insets = padding;
 
-		menuFrame.add(titleLabel, titleConstraints);
+		menuFrame.add(titleLabel, constraints);
+
+		constraints.gridy = 1;
+
+		JPanel buttonPanel = new JPanel();
+		GridLayout buttonLayout = new GridLayout(2, 2, 1, 1);
+		buttonPanel.setLayout(buttonLayout);
 
 		JButton startButton = new JButton(START_TEXT);
 		startButton.setFont(buttonFont);
 		startButton.addActionListener(buttonActionListener);
 
-		GridBagConstraints buttonConstraints = new GridBagConstraints();
-		buttonConstraints.fill = GridBagConstraints.HORIZONTAL;
-		buttonConstraints.gridx = 0;
-		buttonConstraints.gridy = 1;
-		buttonConstraints.insets = padding;
+		buttonPanel.add(startButton);
 
-		menuFrame.add(startButton, buttonConstraints);
+		JButton shopButton = new JButton(SHOP_TEXT);
+		shopButton.setFont(buttonFont);
+		shopButton.addActionListener(buttonActionListener);
 
-		JButton settingsMenu = new JButton(SETTINGS_TEXT);
-		settingsMenu.setFont(buttonFont);
-		settingsMenu.addActionListener(buttonActionListener);
+		buttonPanel.add(shopButton);
 
-		buttonConstraints.gridy = 2;
+		JButton settingsButton = new JButton(SETTINGS_TEXT);
+		settingsButton.setFont(buttonFont);
+		settingsButton.addActionListener(buttonActionListener);
 
-		menuFrame.add(settingsMenu, buttonConstraints);
+		buttonPanel.add(settingsButton);
 
 		JButton exitButton = new JButton(EXIT_TEXT);
 		exitButton.setFont(buttonFont);
 		exitButton.addActionListener(buttonActionListener);
 
-		buttonConstraints.gridy = 3;
+		buttonPanel.add(exitButton);
 
-		menuFrame.add(exitButton, buttonConstraints);
+		menuFrame.add(buttonPanel, constraints);
 
 		displayFrame();
 	}

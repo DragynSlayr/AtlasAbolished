@@ -26,13 +26,17 @@ public class SettingsMenu {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(e.getActionCommand());
 				switch (e.getActionCommand()) {
 				case RESET_TEXT:
+					applyDefaultSettings();
+					settingsFrame.dispose();
 					break;
 				case APPLY_TEXT:
+					applyNewSettings();
+					settingsFrame.dispose();
 					break;
 				case CANCEL_TEXT:
+					settingsFrame.dispose();
 					break;
 				}
 			}
@@ -131,6 +135,14 @@ public class SettingsMenu {
 
 		// Stop the frame from being resized
 		settingsFrame.setResizable(false);
+	}
+
+	private void applyDefaultSettings() {
+		System.out.println("Default");
+	}
+
+	private void applyNewSettings() {
+		System.out.println("New");
 	}
 
 }

@@ -7,16 +7,17 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 public class SettingsMenu {
 
-	private final String[] TABS = { "Game", "Video", "Audio", "Controls" };
+	private final String TAB_VIDEO = "Video", TAB_AUDIO = "Audio",
+			TAB_GAME = "Game", TAB_CONTROLS = "Controls";
 	private final String RESET_TEXT = "Reset", APPLY_TEXT = "Apply",
 			CANCEL_TEXT = "Cancel";
 	private JFrame settingsFrame;
@@ -36,6 +37,7 @@ public class SettingsMenu {
 					settingsFrame.dispose();
 					break;
 				case CANCEL_TEXT:
+					MainMenu.menuFrame.setEnabled(true);
 					settingsFrame.dispose();
 					break;
 				}
@@ -53,9 +55,10 @@ public class SettingsMenu {
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setFont(settingsMenuFont);
 
-		for (String s : TABS) {
-			tabbedPane.addTab(s, createTextPanel(s));
-		}
+		tabbedPane.addTab(TAB_VIDEO, new VideoSettingsMenu());
+		tabbedPane.addTab(TAB_AUDIO, new AudioSettingsMenu());
+		tabbedPane.addTab(TAB_GAME, new GameSettingsMenu());
+		tabbedPane.addTab(TAB_CONTROLS, new ControlsSettingsMenu());
 
 		Insets padding = new Insets(1, 1, 1, 1);
 
@@ -76,6 +79,7 @@ public class SettingsMenu {
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
 		constraints.insets = padding;
+		constraints.weightx = 1.0;
 
 		settingsFrame.add(resetButton, constraints);
 
@@ -95,15 +99,14 @@ public class SettingsMenu {
 
 		settingsFrame.add(cancelButton, constraints);
 
+		settingsFrame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				MainMenu.menuFrame.setEnabled(true);
+			}
+		});
+
 		displayFrame();
-	}
-
-	private JPanel createTextPanel(String label) {
-		JPanel panel = new JPanel();
-
-		panel.add(new JLabel(label));
-
-		return panel;
 	}
 
 	private void createSettingsMenu() {

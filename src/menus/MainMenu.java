@@ -19,7 +19,7 @@ public class MainMenu {
 
 	private final String START_TEXT = "Start", SETTINGS_TEXT = "Settings",
 			EXIT_TEXT = "Exit";
-	private JFrame menuFrame;
+	public static JFrame menuFrame;
 
 	public MainMenu() {
 		createMainMenu();
@@ -37,6 +37,7 @@ public class MainMenu {
 					break;
 				case SETTINGS_TEXT:
 					new SettingsMenu();
+					menuFrame.setEnabled(false);
 					break;
 				case EXIT_TEXT:
 					menuFrame.dispose();

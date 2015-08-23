@@ -48,8 +48,8 @@ public class MainMenu {
 					// TODO menuFrame.setEnabled(false);
 					break;
 				case CREDITS_TEXT:
-					// TODO new creditsMenu();
-					// TODO menuFrame.setEnabled(false);
+					new CreditsMenu();
+					menuFrame.setEnabled(false);
 					break;
 				}
 			}

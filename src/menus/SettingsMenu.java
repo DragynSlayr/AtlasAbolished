@@ -121,9 +121,6 @@ public class SettingsMenu {
 
 		// Set the background color
 		settingsFrame.getContentPane().setBackground(Color.WHITE);
-
-		// Set the size of the frame
-		// settingsFrame.setSize(Main.screenWidth / 3, Main.screenHeight / 2);
 	}
 
 	private void displayFrame() {

@@ -27,17 +27,15 @@ public class SettingsMenu {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				MainMenu.menuFrame.setEnabled(true);
 				switch (e.getActionCommand()) {
 				case RESET_TEXT:
 					applyDefaultSettings();
-					settingsFrame.dispose();
 					break;
 				case APPLY_TEXT:
 					applyNewSettings();
-					settingsFrame.dispose();
 					break;
 				case CANCEL_TEXT:
-					MainMenu.menuFrame.setEnabled(true);
 					settingsFrame.dispose();
 					break;
 				}
@@ -55,7 +53,7 @@ public class SettingsMenu {
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setFont(settingsMenuFont);
 
-		tabbedPane.addTab(TAB_VIDEO, new VideoSettingsMenu());
+		tabbedPane.addTab(TAB_VIDEO, new VideoSettingsMenu().getPanel());
 		tabbedPane.addTab(TAB_AUDIO, new AudioSettingsMenu());
 		tabbedPane.addTab(TAB_GAME, new GameSettingsMenu());
 		tabbedPane.addTab(TAB_CONTROLS, new ControlsSettingsMenu());
@@ -78,7 +76,6 @@ public class SettingsMenu {
 
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
-		constraints.insets = padding;
 		constraints.weightx = 1.0;
 
 		settingsFrame.add(resetButton, constraints);
@@ -139,10 +136,14 @@ public class SettingsMenu {
 
 	private void applyDefaultSettings() {
 		System.out.println("Default");
+		settingsFrame.dispose();
 	}
 
 	private void applyNewSettings() {
-		System.out.println("New");
+		// Apply video settings
+		VideoSettingsMenu.setResolution();
+
+		settingsFrame.dispose();
 	}
 
 }

@@ -168,7 +168,7 @@ public class Player {
 	public void resetPlayer() {
 		currentPlayerX = ((Main.screenWidth / 2) - (playerImage.getWidth(null) / 2));// Resets
 		// playerX
-		currentPlayerY = 27;// Resets playerY
+		currentPlayerY = 3 * (Main.screenHeight / 4);// Resets playerY
 		isJumping = true;// Sets player to float down
 	}
 

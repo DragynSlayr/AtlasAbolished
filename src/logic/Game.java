@@ -14,14 +14,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import menus.Main;
-import fileHandling.Scores;
+import levels.Level;
+import players.Player;
+import powers.PowerUp;
+import projectiles.Coin;
+import projectiles.Projectile;
+import files.StatsLoader;
 
 /**
  * @author Inderpreet
@@ -29,7 +32,7 @@ import fileHandling.Scores;
  */
 
 @SuppressWarnings("serial")
-// This class uses JPanel and ActionListener methods
+// This class is a JPanel and has an ActionListener
 public class Game extends JPanel implements ActionListener {
 
 	private Timer timer;
@@ -37,13 +40,12 @@ public class Game extends JPanel implements ActionListener {
 	private Projectile projectile;
 	private PowerUp powerUp;
 	private Coin coin;
-	private Scores scores;
-	private Image backGround;
+	private StatsLoader statsLoader;
+	private Level level;
 	private Rectangle powerUpHitbox;
 	private Rectangle playerHitbox;
 	private Rectangle bulletHitbox;
 	private String currentPowerUp;
-	private ImageIcon background;
 	private Image powerUpImage;
 	private int powerUpTimer;
 	private int playerScore;
@@ -81,32 +83,29 @@ public class Game extends JPanel implements ActionListener {
 		// Initialize coin
 		coin = new Coin();
 
+		// Initialize level
+		level = new Level();
+
 		// Initialize the score class
-		scores = new Scores();
+		statsLoader = new StatsLoader();
 
 		// Set the score limit
 		scoreLimit = 300;
 
 		// Set the starting power up image
-		powerUpImage = powerUp.getPowerUpImage("points");
+		powerUpImage = powerUp.getPowerUpImage("Points");
 
 		// Load the all time high score
-		highScore = scores.getScore();
+		highScore = statsLoader.getScore();
 
 		// Load coin score
-		coin.setScore(scores.getCoins());
+		coin.setScore(statsLoader.getCoins());
 	}
 
 	/**
 	 * Sets the elements necessary for the board
 	 */
 	private void setUpBoard() {
-		background = new ImageIcon(Main.loader.load(
-				"images\\levels:background.png").getAbsolutePath());
-
-		backGround = Main.resizer.resizeImage(background.getImage(),
-				Main.screenHeight, Main.screenWidth, false);
-
 		addKeyListener(new KeyInputListener());// Adds KeyListener
 		setFocusable(true);// Allows board to be focussed
 		setDoubleBuffered(true);// Makes board double buffered
@@ -146,7 +145,7 @@ public class Game extends JPanel implements ActionListener {
 				RenderingHints.VALUE_RENDER_QUALITY);
 
 		// Draw the background
-		graphic2D.drawImage(backGround, 0, 25, this);
+		graphic2D.drawImage(level.getSizedBackground(), 0, 25, this);
 
 		// Draw the projectile
 		graphic2D.drawImage(projectile.getProjectileImage(),
@@ -208,7 +207,7 @@ public class Game extends JPanel implements ActionListener {
 			winnerSequence();// Displays winning window
 		}
 		if (event.getSource().equals(quit)) {
-			scores.writeCoins(coin.getScore());
+			statsLoader.writeCoins(coin.getScore());
 			System.exit(0);// Close the window
 		}
 		if (event.getSource().equals(playAgain)) {
@@ -283,9 +282,10 @@ public class Game extends JPanel implements ActionListener {
 			timer.stop();// Stops game
 			gameOver();// Displays gameOver window
 			if (playerScore <= highScore) {
-				scores.writeScore(highScore);// Saves playerHighscore if it is
-												// // higher than current
-												// highScore
+				statsLoader.writeScore(highScore);// Saves playerHighscore if it
+													// is
+													// // higher than current
+													// highScore
 			}
 		}
 
@@ -441,9 +441,11 @@ public class Game extends JPanel implements ActionListener {
 				gamePaused = false;// Sets gamePaused to false if true
 				timer.restart();// Restarts timer
 			} else if (key == KeyEvent.VK_ESCAPE) {
-				scores.writeScore(highScore);// Saves playerHighscore if it is
-												// higher than current highScore
-				scores.writeCoins(coin.getScore());
+				statsLoader.writeScore(highScore);// Saves playerHighscore if it
+													// is
+													// higher than current
+													// highScore
+				statsLoader.writeCoins(coin.getScore());
 				System.exit(0);// Closes game
 			}
 			player.keyPressed(keyPress);// Performs the event on keypress

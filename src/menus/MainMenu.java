@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import logic.Game;
+import logic.Main;
 
 public class MainMenu {
 

@@ -14,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
+import logic.Main;
+
 public class SettingsMenu {
 
 	private final String TAB_VIDEO = "Video", TAB_AUDIO = "Audio",

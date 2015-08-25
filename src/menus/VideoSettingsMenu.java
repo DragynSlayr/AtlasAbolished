@@ -12,6 +12,8 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
+import logic.Main;
+
 public class VideoSettingsMenu {
 
 	private JPanel videoPanel;
@@ -39,10 +41,11 @@ public class VideoSettingsMenu {
 				}
 			}
 		};
-		
+
 		try {
 			widthFilter.insertString(0, String.valueOf(Main.screenWidth), null);
-			heightFilter.insertString(0, String.valueOf(Main.screenHeight), null);
+			heightFilter.insertString(0, String.valueOf(Main.screenHeight),
+					null);
 		} catch (BadLocationException ble) {
 			System.out.println(ble.getMessage());
 		}
@@ -122,7 +125,7 @@ public class VideoSettingsMenu {
 		if (height > 0) {
 			resolution[1] = height;
 		}
-		
+
 		Main.screenWidth = width;
 		Main.screenHeight = height;
 	}

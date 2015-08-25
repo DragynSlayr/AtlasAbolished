@@ -14,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import logic.Main;
+
 public class CreditsMenu {
 
 	private final String EXIT_TEXT = "Exit",

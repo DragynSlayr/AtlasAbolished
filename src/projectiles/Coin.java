@@ -24,7 +24,7 @@ public class Coin {
 		coinX = random.nextInt(Main.screenWidth) - 6;
 		coinY = random.nextInt(Main.screenHeight / 4) + Main.screenHeight / 8;
 
-		coinSet = new CoinAnimation().setupCoinAnimSet();
+		coinSet = new CoinAnimation().getCoinAnimation();
 	}
 
 	/**

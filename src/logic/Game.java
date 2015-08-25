@@ -109,7 +109,7 @@ public class Game extends JPanel implements ActionListener {
 		addKeyListener(new KeyInputListener());// Adds KeyListener
 		setFocusable(true);// Allows board to be focussed
 		setDoubleBuffered(true);// Makes board double buffered
-		currentPowerUp = "";// Sets current power up to none
+		currentPowerUp = PowerUp.POWERS[0];// Sets current power up to none
 		powerUpTimer = 0;// Sets the timer for the power ups
 		timer.setInitialDelay(1000);// Sets starting delay
 		timer.start();// Starts the timer
@@ -175,7 +175,7 @@ public class Game extends JPanel implements ActionListener {
 			// Draws a power up if available
 			graphic2D.drawImage(
 					powerUp.getPowerUpImage(powerUp.getPowerUpType()),
-					powerUp.getPowerUpX(), powerUp.getPowerUpY(), null);
+					powerUp.getX(), powerUp.getY(), null);
 			powerUpDrawn = true;// Changes value of powerUpDrawn to true
 		}
 
@@ -227,7 +227,7 @@ public class Game extends JPanel implements ActionListener {
 	 * Checks to see if a powerUp could be obtained by the user
 	 */
 	public void checkForPowerUpAvailability() {
-		if (powerUp.getRandomInt() == 50) {
+		if (powerUp.getRandomInt(300) == 50) {
 			powerUpReady = true;// Initiates powerUpReady based on return of
 								// powerUp.getRandomInt()
 		}
@@ -273,8 +273,8 @@ public class Game extends JPanel implements ActionListener {
 		playerHitbox = player.getPlayerHitbox();
 		bulletHitbox = projectile.getProjectileLocation();
 		if (powerUpReady && powerUpDrawn) {
-			powerUpHitbox = new Rectangle(powerUp.getPowerUpX(),
-					powerUp.getPowerUpY(), powerUpImage.getWidth(this),
+			powerUpHitbox = new Rectangle(powerUp.getX(),
+					powerUp.getY(), powerUpImage.getWidth(this),
 					powerUpImage.getHeight(this));// Declares powerUpHitbox
 		}
 

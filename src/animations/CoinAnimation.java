@@ -20,7 +20,7 @@ public class CoinAnimation {
 	 * Sets up the coin set as well as loading the images
 	 */
 	public AnimationSet getCoinAnimation() {
-		// The size of the coin, diameter/
+		// The size of the coin, diameter
 		int size = Main.screenWidth / 25;
 
 		// Cycle through files

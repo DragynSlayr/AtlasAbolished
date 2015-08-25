@@ -10,13 +10,26 @@ public class Level {
 
 	private Image background;
 
+	/**
+	 * The level the game is played on
+	 */
 	public Level() {
-		background = new ImageIcon(getClass()
-				.getResource("/levels/background.png")).getImage();
+		// Load background
+		background = new ImageIcon(getClass().getResource(
+				"/levels/background.png")).getImage();
 	}
 
+	/**
+	 * Gets an image that is sized correctly
+	 * 
+	 * @return The resized image
+	 */
 	public Image getSizedBackground() {
-		return Main.resizer.resizeImage(background, Main.screenHeight,
+		// Resize the image
+		Image resized = Main.resizer.resizeImage(background, Main.screenHeight,
 				Main.screenWidth, false);
+
+		// Return the resized image
+		return resized;
 	}
 }

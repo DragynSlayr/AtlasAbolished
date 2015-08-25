@@ -29,7 +29,7 @@ public class Player {
 	private ImageIcon playerIcon;
 	private ImageIcon jumpingIcon;
 
-	private final int STARTING_SPEED = 4, MAX_SPEED = 6, MIN_SPEED = 2,
+	public static final int STARTING_SPEED = 4, MAX_SPEED = 6, MIN_SPEED = 2,
 			STARTING_JUMP_HEIGHT = 6, MAX_JUMP_HEIGHT = 10,
 			MIN_JUMP_HEIGHT = 2;
 

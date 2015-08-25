@@ -25,20 +25,35 @@ public class SettingsMenu {
 	private JFrame settingsFrame;
 
 	public SettingsMenu() {
+		// Create an action listener for the buttons
 		ActionListener buttonListener = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// Enable the main menu
 				MainMenu.menuFrame.setEnabled(true);
+
+				// Switch based on button
 				switch (e.getActionCommand()) {
 				case RESET_TEXT:
+					// When pressing the reset button
 					applyDefaultSettings();
+
+					// Stop
 					break;
 				case APPLY_TEXT:
+					// When pressing the apply button
 					applyNewSettings();
+
+					// Stop
 					break;
 				case CANCEL_TEXT:
+					// When the cancel button is pressed
+
+					// Close the settings menu
 					settingsFrame.dispose();
+
+					// Stop
 					break;
 				}
 			}
@@ -46,61 +61,107 @@ public class SettingsMenu {
 
 		createSettingsMenu();
 
+		// Create a font
 		Font settingsMenuFont = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
 
+		// Create a new layout
 		GridBagLayout layout = new GridBagLayout();
 
+		// Set the layout
 		settingsFrame.setLayout(layout);
 
+		// Create a tab pane
 		JTabbedPane tabbedPane = new JTabbedPane();
+
+		// Set the font
 		tabbedPane.setFont(settingsMenuFont);
 
-		tabbedPane.addTab(TAB_VIDEO, new VideoSettingsMenu().getPanel());
+		// Add the tabs to the pane
+		tabbedPane.addTab(TAB_VIDEO, new VideoSettingsMenu().getMenu());
 		tabbedPane.addTab(TAB_AUDIO, new AudioSettingsMenu());
 		tabbedPane.addTab(TAB_GAME, new GameSettingsMenu());
 		tabbedPane.addTab(TAB_CONTROLS, new ControlsSettingsMenu());
 
+		// Create padding
 		Insets padding = new Insets(1, 1, 1, 1);
 
+		// Create constraints for the layout
 		GridBagConstraints constraints = new GridBagConstraints();
+
+		// Set fill
 		constraints.fill = GridBagConstraints.HORIZONTAL;
+
+		// Set width
 		constraints.gridwidth = 3;
-		constraints.gridx = 0;
-		constraints.gridy = 0;
-		// settingsConstraints.ipady = 270;
+
+		// Set the padding
 		constraints.insets = padding;
 
+		// Plot at 0, 0
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+
+		// constraints.ipady = 270;
+
+		// Add tabbed pane
 		settingsFrame.add(tabbedPane, constraints);
 
+		// Create button
 		JButton resetButton = new JButton(RESET_TEXT);
+
+		// Set font
 		resetButton.setFont(settingsMenuFont);
+
+		// Set action listener
 		resetButton.addActionListener(buttonListener);
 
+		// Plot at 0, 1
 		constraints.gridy = 1;
+
+		// Decrease width
 		constraints.gridwidth = 1;
+
+		// Set weight
 		constraints.weightx = 1.0;
 
+		// Add button
 		settingsFrame.add(resetButton, constraints);
 
+		// Create button
 		JButton applyButton = new JButton(APPLY_TEXT);
+
+		// Set font
 		applyButton.setFont(settingsMenuFont);
+
+		// Set action listener
 		applyButton.addActionListener(buttonListener);
 
+		// Plot at 1, 1
 		constraints.gridx = 1;
 
+		// Add button
 		settingsFrame.add(applyButton, constraints);
 
+		// Create button
 		JButton cancelButton = new JButton(CANCEL_TEXT);
+
+		// Set font
 		cancelButton.setFont(settingsMenuFont);
+
+		// Set action listener
 		cancelButton.addActionListener(buttonListener);
 
+		// Plot at 2, 1
 		constraints.gridx = 2;
 
+		// Add button
 		settingsFrame.add(cancelButton, constraints);
 
+		// Set window listener
 		settingsFrame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
+				// Enable main menu
 				MainMenu.menuFrame.setEnabled(true);
 			}
 		});
@@ -108,6 +169,9 @@ public class SettingsMenu {
 		displayFrame();
 	}
 
+	/**
+	 * Sets up the settings menu
+	 */
 	private void createSettingsMenu() {
 		// Create a new frame
 		settingsFrame = new JFrame();
@@ -122,6 +186,9 @@ public class SettingsMenu {
 		settingsFrame.getContentPane().setBackground(Color.WHITE);
 	}
 
+	/**
+	 * Show the settings menu
+	 */
 	private void displayFrame() {
 		// Size the frame
 		settingsFrame.pack();
@@ -136,15 +203,24 @@ public class SettingsMenu {
 		settingsFrame.setResizable(false);
 	}
 
+	/**
+	 * Resets settings to default
+	 */
 	private void applyDefaultSettings() {
 		System.out.println("Default");
+
+		// Close settings menu
 		settingsFrame.dispose();
 	}
 
+	/**
+	 * Uses new settings
+	 */
 	private void applyNewSettings() {
 		// Apply video settings
 		VideoSettingsMenu.setResolution();
 
+		// Close settings menu
 		settingsFrame.dispose();
 	}
 

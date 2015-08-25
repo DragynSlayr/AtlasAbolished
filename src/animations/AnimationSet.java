@@ -52,20 +52,26 @@ public class AnimationSet {
 	 * @return The next frame
 	 */
 	public Image getNextFrame() {
+		// Reset the index if the index is invalid
 		if (frameIndex >= animationSet.size()) {
 			frameIndex = 0;
 		}
 
-		Image temp = animationSet.get(frameIndex);
+		// Get the frame
+		Image currentFrame = animationSet.get(frameIndex);
 
+		// Increment frame count
 		frameCount++;
 
+		// If the frame count has reached the delay then increments the index
+		// and reset the frame count
 		if (frameCount == delay) {
 			frameIndex++;
 			frameCount = 0;
 		}
 
-		return temp;
+		// Return the frame
+		return currentFrame;
 	}
 
 }

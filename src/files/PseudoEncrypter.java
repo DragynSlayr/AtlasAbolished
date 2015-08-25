@@ -16,10 +16,12 @@ public class PseudoEncrypter {
 	public String encrypt(String plain) {
 		char[] chars = plain.toCharArray();
 
+		// Shift each character
 		for (int i = 0; i < chars.length; i++) {
 			chars[i] += shift;
 		}
 
+		// Return encrypted string
 		return new String(chars);
 	}
 
@@ -33,10 +35,12 @@ public class PseudoEncrypter {
 	public String decrypt(String encrypted) {
 		char[] chars = encrypted.toCharArray();
 
+		// Shift each character
 		for (int i = 0; i < chars.length; i++) {
 			chars[i] -= shift;
 		}
 
+		// Return plain text
 		return new String(chars);
 	}
 }

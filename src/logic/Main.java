@@ -23,7 +23,9 @@ public class Main {
 	public static final String GAME_NAME = "Atlas Abolished";
 
 	public static void main(String[] args) {
-		filepath = ((new File("test").exists()) ? "src\\" : "");
+		// Check if the version file is available, if it is then the program is
+		// not a jar file
+		filepath = ((new File("version").exists()) ? "src\\" : "");
 
 		// Store the screen size
 		storeScreenDimensions();

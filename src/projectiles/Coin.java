@@ -42,7 +42,7 @@ public class Coin {
 	public void move() {
 		if (coinY > 0
 				&& coinY < (Main.screenHeight / 2)
-						+ (coinSet.getSet().get(0).getHeight(null) * 5)) {
+						+ (coinSet.getAnimationSet().get(0).getHeight(null) * 5)) {
 			// Make power up fall if not on ground
 			coinY += 2;
 		}
@@ -89,8 +89,8 @@ public class Coin {
 	 * @return The coin location
 	 */
 	public Rectangle getCoinLocation() {
-		coinHitbox = new Rectangle(coinX, coinY, coinSet.getSet().get(0)
-				.getWidth(null), coinSet.getSet().get(0).getHeight(null));
+		coinHitbox = new Rectangle(coinX, coinY, coinSet.getAnimationSet().get(0)
+				.getWidth(null), coinSet.getAnimationSet().get(0).getHeight(null));
 		return coinHitbox;
 	}
 

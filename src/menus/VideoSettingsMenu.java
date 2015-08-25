@@ -151,11 +151,11 @@ public class VideoSettingsMenu {
 	}
 
 	/**
-	 * Get the panel
+	 * Get the menu
 	 * 
-	 * @return The video panel
+	 * @return The video menu
 	 */
-	public JPanel getPanel() {
+	public JPanel getMenu() {
 		return videoPanel;
 	}
 

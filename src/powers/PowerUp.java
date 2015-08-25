@@ -14,32 +14,49 @@ import logic.Main;
  */
 public class PowerUp {
 
-	private int powerUpX;// Declares int, powerUpX
-	private int powerUpY;// Declares int, powerUpY
-	private Image powerUpImage;// Declares Image, powerUpImage
-	private final Random random;// Declares Random, random
-	private Rectangle powerUpHitbox;// Declares Rectangle, powerUpHitbox
-	private String powerUpType;// Declares String, powerUpType
+	private int xPosition;
+	private int yPosition;
+	private int speed;
+	private int startingX, startingY;
+	private Image powerUpImage;
+	private final Random random;
+	private Rectangle powerUpHitbox;
+
+	public static final String[] POWERS = { "None", "Bullet Rain",
+			"Invincibility", "Points", "Speed", "Time Slow" };
+	public static final int STARTING_SPEED = 4, MAX_SPEED = 6, MIN_SPEED = 2;
 
 	public PowerUp() {
-		random = new Random();// Initiates random
-		powerUpX = random.nextInt(Main.screenWidth) - 6;// Initiates powerUpX
-		powerUpY = random.nextInt(Main.screenHeight / 4) + Main.screenHeight
-				/ 8;// Initiates powerUpY
+		// Initiate random
+		random = new Random();
+
+		// Set speed
+		speed = STARTING_SPEED;
+
+		// Set starting x
+		startingX = random.nextInt(Main.screenWidth) - 6;
+		xPosition = startingX;
+
+		// Set starting y
+		startingY = random.nextInt(Main.screenHeight / 4) + Main.screenHeight
+				/ 8;
+		yPosition = startingY;
 	}
 
 	/**
 	 * Moves the powerUp
 	 *
 	 * @param isDrawn
-	 *            boolean, true if powerUp is visible
+	 *            True if powerUp is visible
 	 */
 	public void move(boolean isDrawn) {
-		if (powerUpY > 0
-				&& powerUpY < (Main.screenHeight / 2)
+		// Check visibility and location
+		if (yPosition > 0
+				&& yPosition < (Main.screenHeight / 2)
 						+ (powerUpImage.getHeight(null) * 5) && isDrawn) {
+
 			// Make power up fall if not on ground
-			powerUpY += 2;
+			yPosition += speed;
 		}
 	}
 
@@ -47,12 +64,14 @@ public class PowerUp {
 	 * Gets a powerUpImage
 	 *
 	 * @param currentPowerUp
-	 *            String, the powerUpImage to return
-	 * @return Image, powerUpImage
+	 *            The powerUpImage to return
+	 * @return The power up image
 	 */
 	public Image getPowerUpImage(String currentPowerUp) {
+		// Get the path of the image
 		String path = "/powers/" + currentPowerUp + ".png";
-		
+
+		// Load the image
 		ImageIcon powerUpIcon = new ImageIcon(getClass().getResource(path));
 
 		// Resize icon
@@ -63,75 +82,61 @@ public class PowerUp {
 	}
 
 	/**
-	 * Returns the value of the powerUpX
+	 * Get the x position
 	 *
-	 * @return int, powerUpX
+	 * @return The x position
 	 */
-	public int getPowerUpX() {
-		return powerUpX;
+	public int getX() {
+		return xPosition;
 	}
 
 	/**
-	 * Returns the value of the powerUpY
+	 * Get the y position
 	 *
-	 * @return int, powerUpY
+	 * @return The y position
 	 */
-	public int getPowerUpY() {
-		return powerUpY;
+	public int getY() {
+		return yPosition;
 	}
 
 	/**
-	 * Gets a random value
+	 * Gets a random value between 1 and limit
 	 *
-	 * @return int, random value
+	 * @param limit
+	 *            The max number
+	 * @return A random value
 	 */
-	public int getRandomInt() {
-		return random.nextInt(300) + 1;
+	public int getRandomInt(int limit) {
+		return random.nextInt(limit) + 1;
 	}
 
 	/**
-	 * Resets value of powerUpX and powerUpY to default values
+	 * Resets position of power up
 	 */
 	public void resetPowerUpLocation() {
-		powerUpX = random.nextInt(Main.screenWidth) - 6;
-		powerUpY = random.nextInt(Main.screenHeight / 4) + Main.screenHeight
-				/ 8;
+		xPosition = startingX;
+		yPosition = startingY;
 	}
 
 	/**
-	 * Returns the rectangle for the powerUp
+	 * Get power up position
 	 *
-	 * @return Rectangle, powerUp Location
+	 * @return The power up location
 	 */
 	public Rectangle getPowerUpLocation() {
-		powerUpHitbox = new Rectangle(powerUpX, powerUpY,
+		// Update power up hit box
+		powerUpHitbox = new Rectangle(xPosition, yPosition,
 				powerUpImage.getWidth(null), powerUpImage.getHeight(null));
+
 		return powerUpHitbox;
 	}
 
 	/**
 	 * Returns a powerUpType randomly
 	 *
-	 * @return String, the powerUp type
+	 * @return A random powerUp type
 	 */
 	public String getPowerUpType() {
-		switch (random.nextInt(5)) {
-		case 0:
-			powerUpType = "Speed";
-			break;
-		case 1:
-			powerUpType = "Points";
-			break;
-		case 2:
-			powerUpType = "Time Slow";
-			break;
-		case 3:
-			powerUpType = "Bullet Rain";
-			break;
-		case 4:
-			powerUpType = "Invincibility";
-			break;
-		}
-		return powerUpType;
+		return POWERS[random.nextInt(POWERS.length - 1) + 1];
 	}
 }

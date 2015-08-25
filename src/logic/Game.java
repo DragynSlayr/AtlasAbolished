@@ -151,11 +151,11 @@ public class Game extends JPanel implements ActionListener {
 		graphic2D.drawImage(projectile.getProjectileImage(),
 				projectile.getProjectileX(), projectile.getProjectileY(), null);
 
-		if (player.getIsJumping()) {
-			graphic2D.drawImage(player.getJumpingImage(), player.getPlayerX(),
+		if (player.isJumping()) {
+			graphic2D.drawImage(player.getJumpingImage(), player.getX(),
 					player.getPlayerY(), null);
 		} else {
-			graphic2D.drawImage(player.getImage(), player.getPlayerX(),
+			graphic2D.drawImage(player.getImage(), player.getX(),
 					player.getPlayerY(), null);
 		}
 
@@ -270,7 +270,7 @@ public class Game extends JPanel implements ActionListener {
 	 * Checks the location of all of the images on the board
 	 */
 	public void updateObjectLocations() {
-		playerHitbox = player.getPlayerLocation();
+		playerHitbox = player.getPlayerHitbox();
 		bulletHitbox = projectile.getProjectileLocation();
 		if (powerUpReady && powerUpDrawn) {
 			powerUpHitbox = new Rectangle(powerUp.getPowerUpX(),
@@ -278,7 +278,7 @@ public class Game extends JPanel implements ActionListener {
 					powerUpImage.getHeight(this));// Declares powerUpHitbox
 		}
 
-		if (playerHitbox.intersects(bulletHitbox) && !player.getIsInvincible()) {
+		if (playerHitbox.intersects(bulletHitbox) && !player.isInvincible()) {
 			timer.stop();// Stops game
 			gameOver();// Displays gameOver window
 			if (playerScore <= highScore) {
@@ -328,7 +328,7 @@ public class Game extends JPanel implements ActionListener {
 		player.setPlayerSpeed(4);// Sets the player's speed
 		powerUp.resetPowerUpLocation();// Changes the next powerup's location
 		projectile.setProjectileSpeed(10);// Resets the bullet speed
-		player.setIsInvincible(false);// Stops the player from being
+		player.setInvincibility(false);// Stops the player from being
 										// invincible
 		powerUpTimer = 0;// Sets counter for power ups to 0
 		currentPowerUp = "None";// Reset the current PowerUp
@@ -357,7 +357,7 @@ public class Game extends JPanel implements ActionListener {
 			projectile.setProjectileSpeed(15);// Sets the bullet speed to 1
 		} else if (powerUpType.equalsIgnoreCase("Invincibility")) {
 			currentPowerUp = "Invincibility";// Set the current PowerUp
-			player.setIsInvincible(true);// Makes player Invincible
+			player.setInvincibility(true);// Makes player Invincible
 		}
 	}
 
@@ -392,8 +392,8 @@ public class Game extends JPanel implements ActionListener {
 	 */
 	public void restartGame() {
 		player.resetPlayer();// Resets player location
-		player.setNewX(0);// Sets the player's newX
-		player.setNewY(0);// Sets the player's newY
+		player.setXMovement(0);// Sets the player's newX
+		player.setYMovement(0);// Sets the player's newY
 		timer.restart();// Restarts the game
 		projectile.resetProjectileX();// Sets the bullet's x coordinate
 		projectile.resetProjectileY();// Sets the bullet's y coordinate

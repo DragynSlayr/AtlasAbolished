@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 
 import logic.Main;
 
@@ -18,20 +19,27 @@ public class StatsLoader {
 	private BufferedWriter writer;
 	private File scoreFile, coinFile;
 
+	/**
+	 * Loads statistics from a file
+	 */
 	public StatsLoader() {
 		try {
+			// Test if the program is being ran as a jar
 			if (Main.filepath == "src\\") {
+				// If the program is run normally
 				scoreFile = new File(Main.filepath + "files\\score.txt");
 				coinFile = new File(Main.filepath + "files\\coins.txt");
 			} else {
+				// If the program is a jar
 				scoreFile = new File("score.txt");
 				coinFile = new File("coins.txt");
-				
+
+				// Create the files outside the jar
 				scoreFile.createNewFile();
 				coinFile.createNewFile();
 			}
-		} catch (Exception e) {
-			System.out.println(e);
+		} catch (IOException ioe) {
+			System.out.println(ioe.getMessage());
 		}
 	}
 
@@ -41,16 +49,25 @@ public class StatsLoader {
 	 * @return The score
 	 */
 	public int getScore() {
+		// Initialize a variable
 		int score = 0;
 		try {
+			// Open a reader
 			reader = new BufferedReader(new FileReader(scoreFile));
 
+			// Get score
 			String encryptedScore = reader.readLine().trim();
 
+			// Decrypt score
 			score = Integer.parseInt(Main.encrypter.decrypt(encryptedScore));
-		} catch (Exception e) {
-			System.out.println(e);
+
+			// Close reader
+			reader.close();
+		} catch (IOException ioe) {
+			System.out.println(ioe.getMessage());
 		}
+
+		// Return score
 		return score;
 	}
 
@@ -62,15 +79,23 @@ public class StatsLoader {
 	 */
 	public void writeScore(int score) {
 		try {
+			// Open writer
 			writer = new BufferedWriter(new FileWriter(scoreFile));
 
+			// Encrypt score
 			String encryptedScore = Main.encrypter.encrypt(String
 					.valueOf(score));
 
+			// Write score
 			writer.write(encryptedScore);
+
+			// Flush writer
 			writer.flush();
-		} catch (Exception e) {
-			System.out.println(e);
+
+			// Close writer
+			writer.close();
+		} catch (IOException ioe) {
+			System.out.println(ioe.getMessage());
 		}
 	}
 
@@ -80,16 +105,25 @@ public class StatsLoader {
 	 * @return The coin score
 	 */
 	public int getCoins() {
+		// Initialize score
 		int score = 0;
 		try {
+			// Open reader
 			reader = new BufferedReader(new FileReader(coinFile));
 
+			// Read encrypted score
 			String encryptedScore = reader.readLine().trim();
 
+			// Decrypt score
 			score = Integer.parseInt(Main.encrypter.decrypt(encryptedScore));
-		} catch (Exception e) {
-			System.out.println(e);
+
+			// Close reader
+			reader.close();
+		} catch (IOException ioe) {
+			System.out.println(ioe.getMessage());
 		}
+
+		// Return score
 		return score;
 	}
 
@@ -101,15 +135,23 @@ public class StatsLoader {
 	 */
 	public void writeCoins(int score) {
 		try {
+			// Open writer
 			writer = new BufferedWriter(new FileWriter(coinFile));
 
+			// Encrypt score
 			String encryptedScore = Main.encrypter.encrypt(String
 					.valueOf(score));
 
+			// Write score
 			writer.write(encryptedScore);
+
+			// Flush writer
 			writer.flush();
-		} catch (Exception e) {
-			System.out.println(e);
+
+			// Close writer
+			writer.close();
+		} catch (IOException ioe) {
+			System.out.println(ioe.getMessage());
 		}
 	}
 }

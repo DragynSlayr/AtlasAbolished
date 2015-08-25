@@ -7,6 +7,19 @@ import java.awt.image.BufferedImage;
 
 public class ImageResizer {
 
+	/**
+	 * Resize an image
+	 * 
+	 * @param image
+	 *            The image to resize
+	 * @param height
+	 *            The new height
+	 * @param width
+	 *            The new width
+	 * @param hasAlpha
+	 *            Whether the image is partially transparent
+	 * @return The resized image
+	 */
 	public Image resizeImage(Image image, int height, int width,
 			boolean hasAlpha) {
 		// Set the type of the image
@@ -17,15 +30,20 @@ public class ImageResizer {
 		BufferedImage newImage = new BufferedImage(width, height, imageType);
 
 		// Get graphics from image
-		Graphics2D g = newImage.createGraphics();
+		Graphics2D g2d = newImage.createGraphics();
 
 		if (hasAlpha) {
-			g.setComposite(AlphaComposite.Src);
+			// Set the graphics to support alpha
+			g2d.setComposite(AlphaComposite.Src);
 		}
 
-		g.drawImage(image, 0, 0, width, height, null);
-		g.dispose();
+		// Resize the image
+		g2d.drawImage(image, 0, 0, width, height, null);
 
+		// Dispose of graphics object
+		g2d.dispose();
+
+		// Return resized image
 		return newImage;
 	}
 

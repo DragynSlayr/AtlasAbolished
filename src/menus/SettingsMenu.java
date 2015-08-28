@@ -106,6 +106,12 @@ public class SettingsMenu {
 		// Add tabbed pane
 		settingsFrame.add(tabbedPane, constraints);
 
+		//Redo padding
+		padding = new Insets(padding.top, padding.left, -5, padding.right);
+		
+		//Set insets again
+		constraints.insets = padding;
+		
 		// Create button
 		JButton resetButton = new JButton(RESET_TEXT);
 

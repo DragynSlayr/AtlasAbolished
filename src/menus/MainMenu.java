@@ -214,6 +214,8 @@ public class MainMenu {
 		// Plot at 0, 3
 		constraints.gridx = 0;
 		constraints.gridy = 3;
+		constraints.insets = new Insets(padding.top, padding.left, -5,
+				padding.right);
 
 		// Add button
 		menuFrame.add(exitButton, constraints);

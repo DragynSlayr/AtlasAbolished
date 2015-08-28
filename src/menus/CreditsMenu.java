@@ -57,7 +57,7 @@ public class CreditsMenu {
 		creditsFrame.setLayout(layout);
 
 		// Set the padding to use for the items
-		Insets padding = new Insets(1, 1, 1, 1);
+		Insets padding = new Insets(-5, -5, -5, -5);
 
 		// Create a label for the credits
 		JLabel creditALabel = new JLabel(CREDIT_A);

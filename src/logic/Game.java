@@ -148,8 +148,8 @@ public class Game extends JPanel implements ActionListener {
 		graphic2D.drawImage(level.getSizedBackground(), 0, 25, this);
 
 		// Draw the projectile
-		graphic2D.drawImage(projectile.getProjectileImage(),
-				projectile.getProjectileX(), projectile.getProjectileY(), null);
+		graphic2D.drawImage(projectile.getImage(), projectile.getX(),
+				projectile.getY(), null);
 
 		if (player.isJumping()) {
 			graphic2D.drawImage(player.getJumpingImage(), player.getX(),
@@ -180,8 +180,7 @@ public class Game extends JPanel implements ActionListener {
 		}
 
 		// Draw coin
-		graphic2D.drawImage(coin.getCoinSet().getNextFrame(), coin.getCoinX(),
-				coin.getCoinY(), null);
+		graphic2D.drawImage(coin.getImage(), coin.getX(), coin.getY(), null);
 
 		Toolkit.getDefaultToolkit().sync();// Syncs toolkit
 	}
@@ -217,9 +216,9 @@ public class Game extends JPanel implements ActionListener {
 	}
 
 	public void checkCoin() {
-		if (playerHitbox.intersects(coin.getCoinLocation())) {
+		if (playerHitbox.intersects(coin.getHitbox())) {
 			coin.addToScore(1);
-			coin.resetCoinLocation();
+			coin.resetPosition();
 		}
 	}
 
@@ -238,7 +237,7 @@ public class Game extends JPanel implements ActionListener {
 	 */
 	public void setScores() {
 		// Sets player score
-		playerScore = projectile.getFallCount();
+		playerScore = projectile.getScore();
 		if (playerScore >= highScore) {
 			highScore = playerScore;// Updates high score
 		}
@@ -250,19 +249,11 @@ public class Game extends JPanel implements ActionListener {
 	public void performGameActions() {
 		powerUpTimer++;// Increments powerUptimer
 		player.movePlayer();// Moves player one
-		projectile.moveRock();// Moves the bullet
+		projectile.move();// Moves the bullet
 		powerUp.move(powerUpDrawn);// Moves the powerUp
 		coin.move();
-
-		String sway = projectile.getSway();
-
-		if (sway.equals("left")) {
-			projectile.setProjectileX(-1);// Moves bullet to the left
-		} else if (sway.equals("right")) {
-			projectile.setProjectileX(1);// Moves bullet to the right
-		} else {
-			projectile.setProjectileX(0);
-		}
+		projectile.sway();
+		
 		repaint();// Repaints the board
 	}
 
@@ -271,11 +262,11 @@ public class Game extends JPanel implements ActionListener {
 	 */
 	public void updateObjectLocations() {
 		playerHitbox = player.getPlayerHitbox();
-		bulletHitbox = projectile.getProjectileLocation();
+		bulletHitbox = projectile.getHitbox();
 		if (powerUpReady && powerUpDrawn) {
-			powerUpHitbox = new Rectangle(powerUp.getX(),
-					powerUp.getY(), powerUpImage.getWidth(this),
-					powerUpImage.getHeight(this));// Declares powerUpHitbox
+			powerUpHitbox = new Rectangle(powerUp.getX(), powerUp.getY(),
+					powerUpImage.getWidth(this), powerUpImage.getHeight(this));// Declares
+																				// powerUpHitbox
 		}
 
 		if (playerHitbox.intersects(bulletHitbox) && !player.isInvincible()) {
@@ -327,7 +318,7 @@ public class Game extends JPanel implements ActionListener {
 		powerUpReady = false;// Stops power up from showing for a duration
 		player.setPlayerSpeed(4);// Sets the player's speed
 		powerUp.resetPowerUpLocation();// Changes the next powerup's location
-		projectile.setProjectileSpeed(10);// Resets the bullet speed
+		projectile.setNormalSpeed();// Resets the bullet speed
 		player.setInvincibility(false);// Stops the player from being
 										// invincible
 		powerUpTimer = 0;// Sets counter for power ups to 0
@@ -343,18 +334,18 @@ public class Game extends JPanel implements ActionListener {
 	public void applyBuffs(String powerUpType) {
 		if (powerUpType.equalsIgnoreCase("Points")) {
 			currentPowerUp = "Points";// Set the current PowerUp
-			projectile.addToFallCount(10);// Adds 10 to the score if the user
-											// got
+			projectile.addToScore(10);// Adds 10 to the score if the user
+										// got
 			// a powerup
 		} else if (powerUpType.equalsIgnoreCase("Speed")) {
 			currentPowerUp = "Speed";// Set the current PowerUp
 			player.setPlayerSpeed(7);// Increases the users speed to seven
 		} else if (powerUpType.equalsIgnoreCase("Time Slow")) {
 			currentPowerUp = "Time Slow";// Set the current PowerUp
-			projectile.setProjectileSpeed(5);// Sets the bullet speed to 1
+			projectile.setMinSpeed();
 		} else if (powerUpType.equalsIgnoreCase("Bullet Rain")) {
 			currentPowerUp = "Bullet Rain";// Set the current PowerUp
-			projectile.setProjectileSpeed(15);// Sets the bullet speed to 1
+			projectile.setMaxSpeed();// Sets the bullet speed to 1
 		} else if (powerUpType.equalsIgnoreCase("Invincibility")) {
 			currentPowerUp = "Invincibility";// Set the current PowerUp
 			player.setInvincibility(true);// Makes player Invincible
@@ -395,10 +386,9 @@ public class Game extends JPanel implements ActionListener {
 		player.setXMovement(0);// Sets the player's newX
 		player.setYMovement(0);// Sets the player's newY
 		timer.restart();// Restarts the game
-		projectile.resetProjectileX();// Sets the bullet's x coordinate
-		projectile.resetProjectileY();// Sets the bullet's y coordinate
-		projectile.resetFallCount();// Resets player score
-		coin.resetCoinLocation();// Resets coin location
+		projectile.resetPosition();// Sets the bullet's x coordinate
+		projectile.resetScore();// Resets player score
+		coin.resetPosition();// Resets coin location
 		resetBuffs();// Resets power up bonuses
 	}
 

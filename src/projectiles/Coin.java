@@ -1,7 +1,7 @@
 package projectiles;
 
+import java.awt.Image;
 import java.awt.Rectangle;
-import java.util.Random;
 
 import logic.Main;
 import animations.AnimationSet;
@@ -13,117 +13,76 @@ import animations.CoinAnimation;
  */
 public class Coin {
 
-	private int coinX, coinY, score;
+	private int x, y, speed, score;
+	private AnimationSet animationSet;
+	private Rectangle hitbox;
 
-	private AnimationSet coinSet;
-	private final Random random;
-	private Rectangle coinHitbox;
+	public static final int STARTING_SPEED = 2;
 
 	public Coin() {
-		random = new Random();
-		coinX = random.nextInt(Main.screenWidth) - 6;
-		coinY = random.nextInt(Main.screenHeight / 4) + Main.screenHeight / 8;
+		// Initialize animation set
+		animationSet = new CoinAnimation().getAnimation();
 
-		coinSet = new CoinAnimation().getCoinAnimation();
+		// Set position
+		resetPosition();
+
+		// Set speed
+		setNormalSpeed();
+
+		// Set score
+		setScore(0);
 	}
 
-	/**
-	 * Gets the AnimationSet for the coin
-	 * 
-	 * @return The animation set
-	 */
-	public AnimationSet getCoinSet() {
-		return coinSet;
-	}
-
-	/**
-	 * Moves the coin
-	 */
 	public void move() {
-		if (coinY > 0
-				&& coinY < (Main.screenHeight / 2)
-						+ (coinSet.getAnimationSet().get(0).getHeight(null) * 5)) {
+		// Check if coin has hit bottom
+		if (y < (Main.screenHeight / 2)
+				+ (animationSet.getAnimationSet().get(0).getHeight(null) * 5)) {
 			// Make power up fall if not on ground
-			coinY += 2;
+			y += speed;
 		}
 	}
 
-	/**
-	 * Returns the value of the coinX
-	 *
-	 * @return x position
-	 */
-	public int getCoinX() {
-		return coinX;
+	public int getX() {
+		return x;
 	}
 
-	/**
-	 * Returns the value of the coinY
-	 *
-	 * @return y position
-	 */
-	public int getCoinY() {
-		return coinY;
+	public int getY() {
+		return y;
 	}
 
-	/**
-	 * Gets a random value
-	 *
-	 * @return Random value
-	 */
-	public int getRandomInt() {
-		return random.nextInt(300) + 1;
-	}
-
-	/**
-	 * Resets value of coinX and coinY to default values
-	 */
-	public void resetCoinLocation() {
-		coinX = random.nextInt(Main.screenWidth) - 6;
-		coinY = random.nextInt(Main.screenHeight / 4) + Main.screenHeight / 8;
-	}
-
-	/**
-	 * Get the location of the coin
-	 *
-	 * @return The coin location
-	 */
-	public Rectangle getCoinLocation() {
-		coinHitbox = new Rectangle(coinX, coinY, coinSet.getAnimationSet().get(0)
-				.getWidth(null), coinSet.getAnimationSet().get(0).getHeight(null));
-		return coinHitbox;
-	}
-
-	/**
-	 * Set the score
-	 * 
-	 * @param newScore
-	 *            The new score
-	 */
 	public void setScore(int newScore) {
 		if (newScore >= 0) {
 			score = newScore;
 		}
 	}
 
-	/**
-	 * Gets the score
-	 * 
-	 * @return The score
-	 */
 	public int getScore() {
 		return score;
 	}
 
-	/**
-	 * Adds a value to the score
-	 * 
-	 * @param value
-	 *            The value to add
-	 */
 	public void addToScore(int value) {
 		if (value >= 1) {
 			score += value;
 		}
+	}
+
+	public void resetPosition() {
+		x = Main.random.nextInt(Main.screenWidth) - 6;
+		y = Main.random.nextInt(Main.screenHeight / 4) + Main.screenHeight / 8;
+	}
+
+	public void setNormalSpeed() {
+		speed = STARTING_SPEED;
+	}
+
+	public Rectangle getHitbox() {
+		hitbox = new Rectangle(x, y, animationSet.getAnimationSet().get(0)
+				.getWidth(null), animationSet.getAnimationSet().get(0)
+				.getHeight(null));
+		return hitbox;
+	}
+
+	public Image getImage() {
+		return animationSet.getNextFrame();
 	}
 }

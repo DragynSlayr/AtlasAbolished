@@ -2,7 +2,6 @@ package projectiles;
 
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 
@@ -14,22 +13,20 @@ import logic.Main;
  */
 public class Projectile {
 
-	private int projectileX;// Declares int, rockX
-	private int projectileY;// Declares int, rockY
-	private int projectileSpeed;// Declares int, rockSpeed
-	private int fallCount;// Declares int, rockFallCount
-	private Image projectileImage;// Declares Image, rockImage
-	private Random random;// Declares Random, random
-	private Rectangle projectileHitbox;// Declares Rectangle, rockHitbox
+	private int x, y, speed, score;
+	private Image image;
+	private Rectangle hitbox;
+
+	public static final int STARTING_SPEED = 15, MIN_SPEED = 10,
+			MAX_SPEED = 20;
 
 	public Projectile() {
-		random = new Random();// Initiates random
-
+		// Load image
 		ImageIcon fallingRock = new ImageIcon(getClass().getResource(
 				"/projectiles/rock.png"));
 
 		// Resize image
-		projectileImage = Main.resizer.resizeImage(fallingRock.getImage(),
+		image = Main.resizer.resizeImage(fallingRock.getImage(),
 				(int) (Main.screenHeight / 12.5),
 				(int) (Main.screenWidth / 41.67), true);
 
@@ -38,151 +35,99 @@ public class Projectile {
 		// (int) (Main.screenHeight / 12.67),
 		// (int) (Main.screenWidth / 8), true);
 
-		projectileX = Main.screenWidth / 4;
-		projectileY = 25;
+		// Set position
+		resetPosition();
 
-		projectileSpeed = 10;
+		// Set speed
+		setNormalSpeed();
 
-		fallCount = 0;
+		// Set score
+		setScore(0);
 	}
 
-	/**
-	 * Updates the values of rockX and rockY
-	 */
-	public void moveRock() {
-		projectileY += projectileSpeed;// Increments rockY by rockSpeed
-		if (projectileY >= Main.screenHeight) {
-			projectileY = 25;// Resets rockY to default value if it is >= 250
-			projectileX = random.nextInt(Main.screenWidth) - 6;// Resets rockX
-																// to
-																// default value
-																// if
-			// rockY >= 250
-			fallCount++;// Increments rockFallCount if rockY >= 250
+	public void move() {
+		// Make the rock fall
+		y += speed;
+
+		// Check if the rock has reached the bottom of the screen
+		if (y >= Main.screenHeight + 5) {
+			resetPosition();
+			score++;
 		}
-		if (projectileX < -5) {
-			// Move projectile right if too far left
-			projectileX = (Main.screenWidth - projectileImage.getWidth(null)) - 5;
+
+		// Check if the rock has hit the left side of the screen
+		if (x < -5) {
+			x = (Main.screenWidth - image.getWidth(null)) - 5;
 		}
-		if (projectileX + projectileImage.getWidth(null) > Main.screenWidth - 4) {
-			// Move projectile left if too far right
-			projectileX = -4;
-		}
-	}
 
-	/**
-	 * Get rockX
-	 *
-	 * @return rockX
-	 */
-	public int getProjectileX() {
-		return projectileX;
-	}
-
-	/**
-	 * Get rockY
-	 *
-	 * @return rockY
-	 */
-	public int getProjectileY() {
-		return projectileY;
-	}
-
-	/**
-	 * Gets fall count
-	 *
-	 * @return The fall count
-	 */
-	public int getFallCount() {
-		return fallCount;
-	}
-
-	/**
-	 * Increments rockFallCount
-	 *
-	 * @param value
-	 *            The value to add
-	 */
-	public void addToFallCount(int value) {
-		fallCount += value;
-	}
-
-	/**
-	 * Resets rockX to default value
-	 */
-	public void resetProjectileX() {
-		projectileX = Main.screenWidth / 4;
-	}
-
-	/**
-	 * Increments rockX
-	 *
-	 * @param newX
-	 *            int, the amount to Increment by
-	 */
-	public void setProjectileX(int newX) {
-		projectileX += newX;
-	}
-
-	/**
-	 * Resets rockY to default value
-	 */
-	public void resetProjectileY() {
-		projectileY = 25;
-	}
-
-	/**
-	 * Sets rockSpeed
-	 *
-	 * @param speed
-	 *            int, new Speed
-	 */
-	public void setProjectileSpeed(int speed) {
-		projectileSpeed = speed;
-	}
-
-	/**
-	 * Resets rockFallCount to default value
-	 */
-	public void resetFallCount() {
-		fallCount = 0;
-	}
-
-	/**
-	 * Returns rockImage
-	 *
-	 * @return Image, the rock image
-	 */
-	public Image getProjectileImage() {
-		return projectileImage;
-	}
-
-	/**
-	 * Returns random String
-	 *
-	 * @return String, random String
-	 */
-	public String getSway() {
-		switch (random.nextInt(3)) {
-		case 0:
-			return "left";
-		case 1:
-			return "right";
-		case 3:
-			return "center";
-		default:
-			return "";
+		// Check if the rock has hit the right side of the screen
+		if (x + image.getWidth(null) > Main.screenWidth - 4) {
+			x = -4;
 		}
 	}
 
-	/**
-	 * Returns a rectangle of the rock
-	 *
-	 * @return Rectangle, rock location
-	 */
-	public Rectangle getProjectileLocation() {
-		projectileHitbox = new Rectangle(projectileX, projectileY,
-				projectileImage.getWidth(null), projectileImage.getHeight(null));
-		return projectileHitbox;
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setScore(int newScore) {
+		if (newScore >= 0) {
+			score = newScore;
+		}
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void addToScore(int value) {
+		if (value >= 1) {
+			score += value;
+		}
+	}
+
+	public void resetPosition() {
+		x = Main.random.nextInt(Main.screenWidth) - 6;
+		y = 25;
+	}
+
+	public void setNormalSpeed() {
+		speed = STARTING_SPEED;
+	}
+
+	public void setMaxSpeed() {
+		speed = MAX_SPEED;
+	}
+
+	public void setMinSpeed() {
+		speed = MIN_SPEED;
+	}
+
+	public Rectangle getHitbox() {
+		hitbox = new Rectangle(x, y, image.getWidth(null),
+				image.getHeight(null));
+		return hitbox;
+	}
+	
+	public Image getImage() {
+		return image;
+	}
+
+	public void setXMovement(int xMovement) {
+		x += xMovement;
+	}
+
+	public void resetScore() {
+		setScore(0);
+	}
+
+	public void sway() {
+		int max = 25;
+		int sway = Main.random.nextInt(max) - (max / 2);
+		setXMovement(sway);
 	}
 }

@@ -3,6 +3,7 @@ package logic;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
+import java.util.Random;
 
 import menus.MainMenu;
 import files.ImageResizer;
@@ -19,6 +20,7 @@ public class Main {
 	public static ImageResizer resizer;
 	public static PseudoEncrypter encrypter;
 	public static String filepath = "";
+	public static Random random;
 
 	public static final String GAME_NAME = "Atlas Abolished";
 
@@ -35,6 +37,9 @@ public class Main {
 
 		// Create an encrypting object for every class to use
 		encrypter = new PseudoEncrypter();
+
+		// Create a random for every class
+		random = new Random();
 
 		// Create a main menu
 		new MainMenu();

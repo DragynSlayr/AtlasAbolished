@@ -1,27 +1,23 @@
 package projectiles;
 
-import java.awt.Image;
-import java.awt.Rectangle;
-
 import logic.Main;
-import animations.AnimationSet;
 import animations.CoinAnimation;
 
 /**
  * @author Inderpreet
  * @date Started 18-Apr-2013 continued 3-Aug-2015
  */
-public class Coin {
+public class Coin extends FallingObject {
 
-	private int x, y, speed, score;
-	private AnimationSet animationSet;
-	private Rectangle hitbox;
+	private int speed;
 
 	public static final int STARTING_SPEED = 2;
 
 	public Coin() {
-		// Initialize animation set
-		animationSet = new CoinAnimation().getAnimation();
+		super(new CoinAnimation().getAnimation());
+
+		// Set score
+		super.setScore(0);
 
 		// Set position
 		resetPosition();
@@ -29,40 +25,14 @@ public class Coin {
 		// Set speed
 		setNormalSpeed();
 
-		// Set score
-		setScore(0);
 	}
 
 	public void move() {
 		// Check if coin has hit bottom
-		if (y < (Main.screenHeight / 2)
-				+ (animationSet.getAnimationSet().get(0).getHeight(null) * 5)) {
+		if (super.y < (Main.screenHeight / 2)
+				+ (super.getImage().getHeight(null) * 5)) {
 			// Make power up fall if not on ground
-			y += speed;
-		}
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setScore(int newScore) {
-		if (newScore >= 0) {
-			score = newScore;
-		}
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public void addToScore(int value) {
-		if (value >= 1) {
-			score += value;
+			super.y += speed;
 		}
 	}
 
@@ -73,16 +43,5 @@ public class Coin {
 
 	public void setNormalSpeed() {
 		speed = STARTING_SPEED;
-	}
-
-	public Rectangle getHitbox() {
-		hitbox = new Rectangle(x, y, animationSet.getAnimationSet().get(0)
-				.getWidth(null), animationSet.getAnimationSet().get(0)
-				.getHeight(null));
-		return hitbox;
-	}
-
-	public Image getImage() {
-		return animationSet.getNextFrame();
 	}
 }

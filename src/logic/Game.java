@@ -253,7 +253,7 @@ public class Game extends JPanel implements ActionListener {
 		powerUp.move(powerUpDrawn);// Moves the powerUp
 		coin.move();
 		projectile.sway();
-		
+
 		repaint();// Repaints the board
 	}
 
@@ -387,7 +387,7 @@ public class Game extends JPanel implements ActionListener {
 		player.setYMovement(0);// Sets the player's newY
 		timer.restart();// Restarts the game
 		projectile.resetPosition();// Sets the bullet's x coordinate
-		projectile.resetScore();// Resets player score
+		projectile.setScore(0);// Resets player score
 		coin.resetPosition();// Resets coin location
 		resetBuffs();// Resets power up bonuses
 	}

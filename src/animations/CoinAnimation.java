@@ -6,25 +6,25 @@ import javax.swing.ImageIcon;
 
 import logic.Main;
 
-public class CoinAnimation {
-	private Image[] coinImages;
+public class CoinAnimation extends AnimationSet {
 
-	/**
-	 * Create an animation for coins
-	 */
-	public CoinAnimation() {
-		coinImages = new Image[8];
+	
+	public CoinAnimation(int delay) {
+		this();
+		
+		super.setDelay(8);
 	}
-
-	/**
-	 * Sets up the coin set as well as loading the images
-	 */
-	public AnimationSet getAnimation() {
+	
+	public CoinAnimation() {
+		super();
+		
+		Image[] images = new Image[8];
+		
 		// The size of the coin, diameter
 		int size = Main.screenWidth / 25;
 
 		// Cycle through files
-		for (int i = 0; i < coinImages.length; i++) {
+		for (int i = 0; i < images.length; i++) {
 			// Update the path
 			String path = "/animations/coin" + (i + 1) + ".png";
 
@@ -32,11 +32,10 @@ public class CoinAnimation {
 			ImageIcon coinIcon = new ImageIcon(getClass().getResource(path));
 
 			// Resize the image
-			coinImages[i] = Main.resizer.resizeImage(coinIcon.getImage(), size,
+			images[i] = Main.resizer.resizeImage(coinIcon.getImage(), size,
 					size, true);
 		}
-
-		// Return the animation
-		return new AnimationSet(8, coinImages);
+		
+		super.setImages(images);		
 	}
 }

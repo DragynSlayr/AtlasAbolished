@@ -93,7 +93,7 @@ public class Game extends JPanel implements ActionListener {
 		scoreLimit = 300;
 
 		// Set the starting power up image
-		powerUpImage = powerUp.getPowerUpImage("Points");
+		powerUpImage = powerUp.getImage("Points");
 
 		// Load the all time high score
 		highScore = statsLoader.getScore();
@@ -174,7 +174,7 @@ public class Game extends JPanel implements ActionListener {
 		if (powerUpReady) {
 			// Draws a power up if available
 			graphic2D.drawImage(
-					powerUp.getPowerUpImage(powerUp.getPowerUpType()),
+					powerUp.getImage(powerUp.getRandomPowerUpType()),
 					powerUp.getX(), powerUp.getY(), null);
 			powerUpDrawn = true;// Changes value of powerUpDrawn to true
 		}
@@ -288,19 +288,19 @@ public class Game extends JPanel implements ActionListener {
 	 */
 	public void checkPowerUps() {
 		if (playerHitbox.intersects(powerUpHitbox)) {
-			if (powerUp.getPowerUpType().equals("Points")) {
+			if (powerUp.getRandomPowerUpType().equals("Points")) {
 				resetBuffs();// Resets stats
 				applyBuffs("Points");// Applies effects
-			} else if (powerUp.getPowerUpType().equals("Speed")) {
+			} else if (powerUp.getRandomPowerUpType().equals("Speed")) {
 				resetBuffs();// Resets stats
 				applyBuffs("Speed");// Resets stats
-			} else if (powerUp.getPowerUpType().equals("Time Slow")) {
+			} else if (powerUp.getRandomPowerUpType().equals("Time Slow")) {
 				resetBuffs();// Resets stats
 				applyBuffs("Time Slow");// Resets stats
-			} else if (powerUp.getPowerUpType().equals("Bullet Rain")) {
+			} else if (powerUp.getRandomPowerUpType().equals("Bullet Rain")) {
 				resetBuffs();// Resets stats
 				applyBuffs("Bullet Rain");// Resets stats
-			} else if (powerUp.getPowerUpType().equals("Invincibility")) {
+			} else if (powerUp.getRandomPowerUpType().equals("Invincibility")) {
 				resetBuffs();// Resets stats
 				applyBuffs("Invincibility");// Resets stats
 			}
@@ -317,7 +317,7 @@ public class Game extends JPanel implements ActionListener {
 		powerUpDrawn = false;// Stops powerUp from being checked
 		powerUpReady = false;// Stops power up from showing for a duration
 		player.setPlayerSpeed(4);// Sets the player's speed
-		powerUp.resetPowerUpLocation();// Changes the next powerup's location
+		powerUp.resetPosition();// Changes the next powerup's location
 		projectile.setNormalSpeed();// Resets the bullet speed
 		player.setInvincibility(false);// Stops the player from being
 										// invincible

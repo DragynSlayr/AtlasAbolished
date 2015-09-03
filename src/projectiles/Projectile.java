@@ -10,16 +10,18 @@ public class Projectile extends FallingObject {
 
 	private int speed;
 
+	public static String startingProjectile = "/projectiles/rock.png";
+
 	private static final int STARTING_SPEED = 15, MIN_SPEED = 10,
 			MAX_SPEED = 20;
 
 	public Projectile() {
-		super("/projectiles/rock.png", (int) (Main.screenHeight / 12.5),
+		super(startingProjectile, (int) (Main.screenHeight / 12.5),
 				(int) (Main.screenWidth / 41.67), true);
 
 		// Set score
 		super.setScore(0);
-		
+
 		// Set position
 		resetPosition();
 

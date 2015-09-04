@@ -14,7 +14,7 @@ public class Coin extends FallingObject {
 	public static final int STARTING_SPEED = 2;
 
 	public Coin() {
-		super(new CoinAnimation(8));
+		super(new CoinAnimation(50));
 
 		// Set score
 		super.setScore(0);

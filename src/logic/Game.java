@@ -68,8 +68,12 @@ public class Game extends JPanel implements ActionListener {
 	 * Initiates variables for the board
 	 */
 	private void initiateBoardVariables() {
-		// Initiates timer to tick every 10 milliseconds, 1000 = 1 second
+		// Initiates timer to tick every 10 milliseconds, 1000ms = 1s
+		// Game runs at 100fps
 		timer = new Timer(10, this);
+		
+		//Make the timer start right away
+		timer.setInitialDelay(0);
 
 		// Initialize the player
 		player = new Player();

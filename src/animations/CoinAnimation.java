@@ -12,7 +12,7 @@ public class CoinAnimation extends AnimationSet {
 	public CoinAnimation(int delay) {
 		this();
 		
-		super.setDelay(8);
+		super.setDelay(delay);
 	}
 	
 	public CoinAnimation() {
@@ -36,6 +36,6 @@ public class CoinAnimation extends AnimationSet {
 					size, true);
 		}
 		
-		super.setImages(images);		
+		super.addToAnimation(images);		
 	}
 }

@@ -6,21 +6,33 @@ import javax.swing.ImageIcon;
 
 import logic.Main;
 
-public class CoinAnimation extends AnimationSet {
+public class CoinAnimation extends Animation {
 
-	
+	/**
+	 * Creates a new coin animation with a delay
+	 * 
+	 * @param delay
+	 *            The delay between frames in the animation, in frames
+	 */
 	public CoinAnimation(int delay) {
+		// Call the no-parameter constructor
 		this();
-		
+
+		// Set the delay of the animation
 		super.setDelay(delay);
 	}
-	
+
+	/**
+	 * Create a new coin animation with a default 1 frame delay
+	 */
 	public CoinAnimation() {
+		// Call animation class constructor
 		super();
-		
+
+		// Create an array for the images
 		Image[] images = new Image[8];
-		
-		// The size of the coin, diameter
+
+		// The size of the coin
 		int size = Main.screenWidth / 25;
 
 		// Cycle through files
@@ -35,7 +47,8 @@ public class CoinAnimation extends AnimationSet {
 			images[i] = Main.resizer.resizeImage(coinIcon.getImage(), size,
 					size, true);
 		}
-		
-		super.addToAnimation(images);		
+
+		// Add all images to the animation
+		super.addToAnimation(images);
 	}
 }

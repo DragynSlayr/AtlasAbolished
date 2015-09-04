@@ -3,12 +3,12 @@ package animations;
 import java.awt.Image;
 import java.util.ArrayList;
 
-public abstract class AnimationSet {
+public abstract class Animation {
 
 	private ArrayList<Image> imageList;
 	private int frameNumber, frameDelay, frameCount;
 
-	public AnimationSet() {
+	public Animation() {
 		// Initialize list of images
 		imageList = new ArrayList<Image>();
 

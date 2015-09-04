@@ -6,13 +6,13 @@ import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 import logic.Main;
-import animations.AnimationSet;
+import animations.Animation;
 
 public abstract class FallingObject {
 
 	public int x, y, score;
 	private Image image;
-	private AnimationSet animation;
+	private Animation animation;
 	private Rectangle hitbox;
 	private boolean isAnimated = false;
 
@@ -24,7 +24,7 @@ public abstract class FallingObject {
 				isTransparent);
 	}
 
-	public FallingObject(AnimationSet set) {
+	public FallingObject(Animation set) {
 		animation = set;
 
 		isAnimated = true;

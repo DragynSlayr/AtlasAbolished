@@ -20,7 +20,7 @@ public class PseudoEncrypter {
 		for (int i = 0; i < chars.length; i++) {
 			chars[i] += shift;
 		}
-
+		
 		// Return encrypted string
 		return new String(chars);
 	}

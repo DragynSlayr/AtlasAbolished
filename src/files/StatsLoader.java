@@ -63,10 +63,12 @@ public class StatsLoader {
 
 			// Close reader
 			reader.close();
-		} catch (IOException ioe) {
-			System.out.println(ioe.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			
+			return 0;
 		}
-
+		
 		// Return score
 		return score;
 	}
@@ -119,8 +121,10 @@ public class StatsLoader {
 
 			// Close reader
 			reader.close();
-		} catch (IOException ioe) {
-			System.out.println(ioe.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			
+			return 0;
 		}
 
 		// Return score
